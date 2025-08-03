@@ -1,0 +1,6 @@
+spring.application.name: user-service
+jwt:
+  expiration: 300000
+  secret: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
+    et quasi architecto beatae vitae dicta sunt"
