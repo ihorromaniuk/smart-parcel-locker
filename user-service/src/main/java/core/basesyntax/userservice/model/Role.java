@@ -10,12 +10,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "roles")
+@Accessors(chain = true)
 public class Role implements GrantedAuthority {
     private static final String ROLE_PREFIX = "ROLE_";
 

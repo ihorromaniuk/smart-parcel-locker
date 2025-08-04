@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-roles
+      author: Ihor Romaniuk
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: 'ADMIN'
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: 'USER'
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: name
+                  value: 'COURIER'

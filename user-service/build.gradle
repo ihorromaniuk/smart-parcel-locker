@@ -1,7 +1,28 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.liquibase:liquibase-core:4.33.0'
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.5.4'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.liquibase.gradle' version '3.0.2'
+}
+
+liquibase {
+    activities {
+        main {
+            changeLogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
+            url 'jdbc:postgresql://localhost:5433/locker_db'
+            username 'locker_user'
+            password 'locker_pass'
+        }
+    }
 }
 
 group = 'core.basesyntax'
@@ -26,6 +47,7 @@ repositories {
 ext {
     jjwtVersion = '0.12.6'
     mapstructVersion = '1.6.3'
+    liquibaseVersion = '4.33.0'
 }
 
 dependencies {
@@ -46,10 +68,15 @@ dependencies {
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
+    implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
+    implementation 'org.liquibase:liquibase-gradle-plugin:3.0.2'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+
 
 tasks.named('test') {
     useJUnitPlatform()
