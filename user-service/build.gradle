@@ -69,7 +69,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
     implementation "org.liquibase:liquibase-core:${liquibaseVersion}"
-    implementation 'org.liquibase:liquibase-gradle-plugin:3.0.2'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.amqp:spring-rabbit-test'
