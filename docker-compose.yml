@@ -8,3 +8,11 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+  postgres:
+    image: postgres:17
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: locker_user
+      POSTGRES_PASSWORD: locker_pass
+      POSTGRES_DB: locker_db

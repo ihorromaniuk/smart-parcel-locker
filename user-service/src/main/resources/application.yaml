@@ -1,4 +1,19 @@
-spring.application.name: user-service
+spring:
+  application:
+    name: user-service
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5433/locker_db
+    username: locker_user
+    password: locker_pass
+
 jwt:
   expiration: 300000
   secret: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
