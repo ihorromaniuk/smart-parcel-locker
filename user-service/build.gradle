@@ -18,9 +18,9 @@ liquibase {
     activities {
         main {
             changeLogFile 'src/main/resources/db/changelog/db.changelog-master.yaml'
-            url 'jdbc:postgresql://localhost:5433/locker_db'
-            username 'locker_user'
-            password 'locker_pass'
+            url "jdbc:postgresql://localhost:${System.getenv("DB_PORT")}/${System.getenv("DB_NAME")}"
+            username System.getenv("DB_USER")
+            password System.getenv("DB_PASSWORD")
         }
     }
 }
