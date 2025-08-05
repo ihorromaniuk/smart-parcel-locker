@@ -3,6 +3,7 @@ package core.basesyntax.userservice.mapper;
 import core.basesyntax.userservice.config.MapperConfig;
 import core.basesyntax.userservice.dto.user.CreateUserRequestDto;
 import core.basesyntax.userservice.dto.user.UserResponseDto;
+import core.basesyntax.userservice.event.UserCreatedEvent;
 import core.basesyntax.userservice.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,4 +15,6 @@ public interface UserMapper {
     User toModel(CreateUserRequestDto requestDto);
 
     UserResponseDto toDto(User user);
+
+    UserCreatedEvent modelToCreatedEvent(User user);
 }

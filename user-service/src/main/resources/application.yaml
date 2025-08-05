@@ -13,6 +13,11 @@ spring:
     url: jdbc:postgresql://localhost:5433/locker_db
     username: locker_user
     password: locker_pass
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbit_user
+    password: rabbit_pass
 
 jwt:
   expiration: 300000
