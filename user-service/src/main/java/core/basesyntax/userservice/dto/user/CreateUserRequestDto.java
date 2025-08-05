@@ -1,13 +1,15 @@
 package core.basesyntax.userservice.dto.user;
 
 import core.basesyntax.userservice.annotation.fieldmatch.FieldsMatch;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @FieldsMatch(field = "password",
         fieldMatch = "repeatPassword",
         message = "Passwords don't match")
-public record CreateUserRequestDto(@NotBlank String email,
+public record CreateUserRequestDto(@Email(message = "Email should be valid")
+                                   @NotBlank String email,
                                    @Size(min = 8, max = 24)
                                    @NotBlank String password,
                                    @Size(min = 8, max = 24)

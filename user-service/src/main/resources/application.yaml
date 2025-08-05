@@ -1,6 +1,8 @@
 spring:
   application:
     name: user-service
+  config:
+    import: optional:file:../.env[.properties]
   jpa:
     hibernate:
       ddl-auto: validate
@@ -10,17 +12,21 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:postgresql://localhost:5433/locker_db
-    username: locker_user
-    password: locker_pass
+    url: jdbc:postgresql://localhost:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: rabbit_user
-    password: rabbit_pass
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    url: jdbc:postgresql://localhost:${DB_PORT}/${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+    enabled: true
 
 jwt:
-  expiration: 300000
-  secret: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-    doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis
-    et quasi architecto beatae vitae dicta sunt"
+  expiration: ${JWT_EXPIRATION}
+  secret: ${JWT_SECRET}
