@@ -8,11 +8,10 @@ import jakarta.validation.constraints.Size;
 @FieldsMatch(field = "password",
         fieldMatch = "repeatPassword",
         message = "Passwords don't match")
-public record CreateUserRequestDto(@Email(message = "Email should be valid")
+public record CreateUserRequestDto(@Email(message = "is invalid")
                                    @NotBlank String email,
                                    @Size(min = 8, max = 24)
                                    @NotBlank String password,
-                                   @Size(min = 8, max = 24)
-                                   @NotBlank String repeatPassword,
+                                   String repeatPassword,
                                    @NotBlank String fullName) {
 }

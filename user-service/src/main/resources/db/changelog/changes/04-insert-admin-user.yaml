@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-roles
+      author: Ihor Romaniuk
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: 'admin@lock.com'
+              - column:
+                  name: password
+                  value: '$2a$10$dQNcbsG8IJsgsr.NT7SdiufgQZwwTg/yxcS2H5aw6E.qACrx2Tnm6'
+              - column:
+                  name: full_name
+                  value: 'Ad Min'
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: "(select id from users where email = 'admin@lock.com')"
+              - column:
+                  name: role_id
+                  valueComputed: "(select id from roles where name = 'ADMIN')"

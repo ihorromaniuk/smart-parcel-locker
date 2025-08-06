@@ -16,6 +16,7 @@ databaseChangeLog:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -42,6 +43,7 @@ databaseChangeLog:
                     nullable: false
                   name: enabled
                   type: BOOLEAN
+                  defaultValueBoolean: true
             tableName: users
   - changeSet:
       id: 1754309460494-3

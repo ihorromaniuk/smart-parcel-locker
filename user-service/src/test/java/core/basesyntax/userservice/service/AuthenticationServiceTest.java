@@ -30,7 +30,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-class UserServiceTest {
+class AuthenticationServiceTest {
+    private static final String USER_CREATED_ROUTING_KEY = "user.created";
 
     @Mock
     private UserRepository userRepository;
@@ -48,7 +49,7 @@ class UserServiceTest {
     private RabbitTemplate rabbitTemplate;
 
     @InjectMocks
-    private UserService userService;
+    private AuthenticationService authenticationService;
 
     @BeforeEach
     void setUp() {
@@ -82,13 +83,13 @@ class UserServiceTest {
         when(userMapper.modelToCreatedEvent(user)).thenReturn(null);
         when(userMapper.toDto(user)).thenReturn(responseDto);
 
-        UserResponseDto result = userService.registerNewUser(requestDto);
+        UserResponseDto result = authenticationService.registerNewUser(requestDto);
 
         assertEquals(responseDto, result);
         verify(userRepository).save(user);
         verify(rabbitTemplate).convertAndSend(
                 eq(RabbitMqConfig.TOPIC_EXCHANGE_NAME),
-                eq(UserService.USER_CREATED_ROUTING_KEY),
+                eq(USER_CREATED_ROUTING_KEY),
                 Optional.ofNullable(any()));
     }
 
@@ -118,7 +119,7 @@ class UserServiceTest {
                         "Role User",
                         Set.of(userRole)));
 
-        userService.registerNewUser(requestDto);
+        authenticationService.registerNewUser(requestDto);
 
         assertTrue(user.getRoles().contains(userRole));
         assertEquals(1, user.getRoles().size());
@@ -135,7 +136,7 @@ class UserServiceTest {
         when(authentication.getName()).thenReturn("login@example.com");
         when(jwtUtil.generateToken("login@example.com")).thenReturn("jwt-token");
 
-        LoginResponseDto response = userService.login(requestDto);
+        LoginResponseDto response = authenticationService.login(requestDto);
 
         assertEquals("jwt-token", response.token());
         verify(authenticationManager)
@@ -158,7 +159,7 @@ class UserServiceTest {
 
         RegistrationException exception = assertThrows(
                 RegistrationException.class,
-                () -> userService.registerNewUser(requestDto)
+                () -> authenticationService.registerNewUser(requestDto)
         );
         assertTrue(exception.getMessage().contains("already exists"));
         verify(userRepository, never()).save(any());
@@ -181,7 +182,7 @@ class UserServiceTest {
 
         EntityNotFoundException exception = assertThrows(
                 EntityNotFoundException.class,
-                () -> userService.registerNewUser(requestDto)
+                () -> authenticationService.registerNewUser(requestDto)
         );
         assertTrue(exception.getMessage().contains("Can't find role by name"));
         verify(userRepository, never()).save(any());
@@ -194,7 +195,7 @@ class UserServiceTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenThrow(new BadCredentialsException("Bad credentials"));
 
-        assertThrows(BadCredentialsException.class, () -> userService.login(requestDto));
+        assertThrows(BadCredentialsException.class, () -> authenticationService.login(requestDto));
         verify(jwtUtil, never()).generateToken(anyString());
     }
 }

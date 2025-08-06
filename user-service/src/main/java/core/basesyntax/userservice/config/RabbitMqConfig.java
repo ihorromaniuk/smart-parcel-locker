@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMqConfig {
-    public static final String TOPIC_EXCHANGE_NAME = "parcel_locker_exchange";
+    public static final String TOPIC_EXCHANGE_NAME = "parcel.locker.exchange";
 
     @Bean
     public TopicExchange exchange() {
