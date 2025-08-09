@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1754309576759-1
+      author: Igor
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_roles
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(255)
+            tableName: roles
+  - changeSet:
+      id: 1754309576759-2
+      author: Igor
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_roles_name
+            tableName: roles
+
