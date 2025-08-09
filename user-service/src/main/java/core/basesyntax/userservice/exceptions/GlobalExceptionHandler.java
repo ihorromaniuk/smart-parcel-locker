@@ -36,9 +36,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exceptionDto, status);
     }
 
-    @ExceptionHandler(AuthorizationDeniedException.class)
-    public ResponseEntity<ExceptionDto> handleAuthorizationDeniedException(
-            AuthorizationDeniedException ex) {
+    @ExceptionHandler({AuthorizationDeniedException.class, AdminSelfChangeException.class})
+    public ResponseEntity<ExceptionDto> handleForbiddenException(
+            Exception ex) {
         HttpStatus status = HttpStatus.FORBIDDEN;
         ExceptionDto exceptionDto = new ExceptionDto(status, ex.getMessage());
         return new ResponseEntity<>(exceptionDto, status);

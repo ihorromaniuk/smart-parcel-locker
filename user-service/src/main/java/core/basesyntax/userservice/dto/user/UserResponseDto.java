@@ -6,5 +6,6 @@ import java.util.Set;
 public record UserResponseDto(Long id,
                               String email,
                               String fullName,
-                              Set<Role> roles) {
+                              Set<Role> roles,
+                              boolean enabled) {
 }

@@ -73,7 +73,8 @@ class AuthenticationServiceTest {
         UserResponseDto responseDto = new UserResponseDto(1L,
                 "test@example.com",
                 "Test User",
-                Set.of(userRole));
+                Set.of(userRole),
+                true);
 
         when(userMapper.toModel(requestDto)).thenReturn(user);
         when(userRepository.existsByEmail("test@example.com")).thenReturn(false);
@@ -117,7 +118,8 @@ class AuthenticationServiceTest {
                 new UserResponseDto(2L,
                         "roleuser@example.com",
                         "Role User",
-                        Set.of(userRole)));
+                        Set.of(userRole),
+                        true));
 
         authenticationService.registerNewUser(requestDto);
 

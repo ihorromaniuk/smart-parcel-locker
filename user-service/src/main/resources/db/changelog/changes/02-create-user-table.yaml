@@ -44,6 +44,12 @@ databaseChangeLog:
                   name: enabled
                   type: BOOLEAN
                   defaultValueBoolean: true
+              - column:
+                  constraints:
+                    nullable: false
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false
             tableName: users
   - changeSet:
       id: 1754309460494-3

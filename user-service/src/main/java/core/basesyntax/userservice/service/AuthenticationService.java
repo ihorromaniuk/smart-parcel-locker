@@ -46,7 +46,7 @@ public class AuthenticationService {
         Role userRole = roleRepository.findByName(Role.RoleName.USER).orElseThrow(() ->
                 new EntityNotFoundException("Can't find role by name. Name: "
                         + Role.RoleName.USER));
-        user.setRoles(Set.of(userRole));
+        user.getRoles().add(userRole);
         userRepository.save(user);
         rabbitTemplate.convertAndSend(RabbitMqConfig.TOPIC_EXCHANGE_NAME,
                 USER_CREATED_ROUTING_KEY, userMapper.modelToCreatedEvent(user));
